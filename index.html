@@ -270,9 +270,9 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('img/hero-artisan.jpg');
+      background-image: url('hero-sunset.jpg');
       background-size: cover;
-      background-position: center right;
+      background-position: center center;
     }
     .hero-bg::before {
       content: '';
@@ -614,10 +614,20 @@
     .zone-section {
       padding: 90px 0;
       background: var(--charcoal);
+      background-image: url('zone-agde.jpg');
+      background-size: cover;
+      background-position: center center;
       position: relative;
       overflow: hidden;
     }
     .zone-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(20,16,12,0.88) 45%, rgba(20,16,12,0.70) 100%);
+      pointer-events: none;
+    }
+    .zone-section::after {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -681,6 +691,21 @@
     .valeurs-section {
       padding: 90px 0;
       background: var(--warm-white);
+      background-image: url('valeurs-bg.jpg');
+      background-size: cover;
+      background-position: center center;
+      position: relative;
+    }
+    .valeurs-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(250,248,244,0.88);
+      pointer-events: none;
+    }
+    .valeurs-section > * {
+      position: relative;
+      z-index: 1;
     }
     .valeurs-inner {
       display: grid;
@@ -1395,7 +1420,7 @@
 
           <article class="service-card">
             <div class="service-img-wrap">
-              <img src="img/service-ouverture.jpg" alt="Serrurier en train de crocheter une serrure" class="service-img" loading="lazy" />
+              <img src="service-ouverture.jpg" alt="Digicode interphone installation serrurerie Agde" class="service-img" loading="lazy" />
             </div>
             <div class="service-body">
               <div class="service-num">01</div>
@@ -1407,7 +1432,7 @@
 
           <article class="service-card">
             <div class="service-img-wrap">
-              <img src="img/service-cylindre.jpg" alt="Cylindre et clés sur parquet" class="service-img" loading="lazy" />
+              <img src="service-cylindre.jpg" alt="Cylindre et clés remplacement serrure Agde" class="service-img" loading="lazy" />
             </div>
             <div class="service-body">
               <div class="service-num">02</div>
@@ -1419,7 +1444,7 @@
 
           <article class="service-card">
             <div class="service-img-wrap">
-              <img src="img/service-securite.jpg" alt="Serrure multipoints haute sécurité" class="service-img" loading="lazy" />
+              <img src="service-securite.jpg" alt="Serrure multipoints haute sécurité installation Agde" class="service-img" loading="lazy" />
             </div>
             <div class="service-body">
               <div class="service-num">03</div>
@@ -1431,7 +1456,7 @@
 
           <article class="service-card">
             <div class="service-img-wrap">
-              <img src="img/service-artisan.jpg" alt="Artisan serrurier intervenant sur une porte" class="service-img" loading="lazy" />
+              <img src="service-cles.jpg" alt="Artisan serrurier remplacement cylindre clés perdues Agde" class="service-img" loading="lazy" />
             </div>
             <div class="service-body">
               <div class="service-num">04</div>
@@ -1443,7 +1468,7 @@
 
           <article class="service-card">
             <div class="service-img-wrap">
-              <img src="img/service-digicode.jpg" alt="Digicode interphone Urmet installation" class="service-img" loading="lazy" />
+              <img src="service-controle.jpg" alt="Artisan serrurier ouverture de porte Agde" class="service-img" loading="lazy" />
             </div>
             <div class="service-body">
               <div class="service-num">05</div>
@@ -1455,7 +1480,7 @@
 
           <article class="service-card">
             <div class="service-img-wrap">
-              <img src="img/service-reparation.jpg" alt="Mécanisme de serrure en cours de réparation" class="service-img" loading="lazy" />
+              <img src="service-reparation.jpg" alt="Mécanisme de serrure en cours de réparation Agde" class="service-img" loading="lazy" />
             </div>
             <div class="service-body">
               <div class="service-num">06</div>
