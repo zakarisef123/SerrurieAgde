@@ -8,7 +8,6 @@
   <meta name="description" content="Serrurier agréé assurances à Agde et Cap d'Agde. Intervention en 30 minutes, 24h/24 7j/7. Ouverture de porte, remplacement de serrure, installation haute sécurité. Devis gratuit." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://serrurerie-mediterranee-agde.fr/" />
-
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Serrurier Agde & Cap d'Agde — Intervention 30 min | Serrurerie Méditerranée" />
   <meta property="og:description" content="Votre serrurier de confiance à Agde et Cap d'Agde. Disponible 24h/7j. Artisan agréé assurances. Devis gratuit sur place." />
@@ -80,6 +79,7 @@
       color: var(--charcoal);
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
@@ -99,9 +99,13 @@
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
     /* ── Utilitaires ── */
-    .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
     .section-label {
       font-family: var(--sans);
       font-size: 0.72rem;
@@ -113,7 +117,7 @@
     }
     .section-title {
       font-family: var(--serif);
-      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      font-size: clamp(1.5rem, 3.5vw, 2.6rem);
       font-weight: 700;
       color: var(--charcoal);
       line-height: 1.2;
@@ -121,7 +125,7 @@
     }
     .section-desc {
       color: var(--gray);
-      font-size: 1rem;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
       font-weight: 400;
       max-width: 560px;
       line-height: 1.75;
@@ -133,7 +137,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 14px 32px;
+      padding: 14px 28px;
       font-size: 0.9rem;
       font-weight: 600;
       letter-spacing: 0.06em;
@@ -141,6 +145,8 @@
       border-radius: var(--radius);
       transition: all var(--transition);
       white-space: nowrap;
+      cursor: pointer;
+      touch-action: manipulation;
     }
     .btn-gold {
       background: var(--gold);
@@ -187,31 +193,32 @@
       align-items: center;
       justify-content: space-between;
       height: 72px;
-      gap: 24px;
+      gap: 16px;
     }
     .logo {
       display: flex;
       flex-direction: column;
       gap: 1px;
+      flex-shrink: 0;
     }
     .logo-name {
       font-family: var(--serif);
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
       font-weight: 700;
       color: var(--charcoal);
       letter-spacing: 0.01em;
     }
     .logo-name span { color: var(--gold); }
     .logo-sub {
-      font-size: 0.62rem;
+      font-size: 0.58rem;
       font-weight: 500;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--gray-light);
     }
     .nav-links {
       display: flex;
-      gap: 36px;
+      gap: 32px;
       align-items: center;
     }
     .nav-links a {
@@ -238,14 +245,16 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      padding: 10px 22px;
+      padding: 10px 20px;
       background: var(--charcoal);
       color: var(--warm-white);
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 0.03em;
       border-radius: var(--radius);
       transition: all var(--transition);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .nav-cta:hover { background: var(--gold); }
     .nav-cta-dot {
@@ -256,12 +265,80 @@
       flex-shrink: 0;
     }
 
+    /* ── Hamburger ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--charcoal);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Mobile Nav Drawer ── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0; right: 0;
+      background: rgba(250,248,244,0.98);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      z-index: 999;
+      flex-direction: column;
+      padding: 20px;
+      gap: 4px;
+      animation: slideDown 0.25s ease both;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      transition: background var(--transition);
+      display: block;
+    }
+    .mobile-nav a:hover { background: var(--sand); }
+    .mobile-nav .mobile-call {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--gold);
+      color: var(--warm-white);
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 16px;
+      border-radius: var(--radius);
+    }
+
     /* ═══════════════════════════════
        HERO
     ═══════════════════════════════ */
     .hero {
       position: relative;
-      min-height: 92vh;
+      min-height: clamp(500px, 90vh, 950px);
       display: flex;
       align-items: center;
       overflow: hidden;
@@ -270,8 +347,9 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(135deg, #0d0b08 0%, #1a1208 35%, #2a1e0a 60%, #1c160a 100%);
+      background-image: url('vuemere.JPG');
+      background-size: cover;
+      background-position: center;
     }
     .hero-bg::before {
       content: '';
@@ -285,13 +363,12 @@
       content: '';
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(to right, rgba(10,8,5,0.60) 0%, rgba(10,8,5,0.10) 100%);
+      background: linear-gradient(to right, rgba(10,8,5,0.60) 0%, rgba(10,8,5,0.10) 100%);
     }
     .hero-content {
       position: relative;
       z-index: 2;
-      padding: 100px 0;
+      padding: 80px 0 70px;
       max-width: 620px;
       animation: fadeUp 0.9s ease both;
     }
@@ -302,13 +379,13 @@
       background: rgba(184,151,90,0.15);
       border: 1px solid rgba(184,151,90,0.35);
       color: var(--gold-light);
-      padding: 7px 18px;
+      padding: 7px 16px;
       border-radius: 2px;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
     .hero-badge-dot {
       width: 7px; height: 7px;
@@ -319,37 +396,42 @@
     }
     .hero h1 {
       font-family: var(--serif);
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-size: clamp(1.9rem, 5.5vw, 3.8rem);
       font-weight: 700;
       color: var(--warm-white);
       line-height: 1.12;
       letter-spacing: -0.01em;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
     .hero h1 em {
       font-style: normal;
       color: var(--gold-light);
     }
     .hero-desc {
-      font-size: 1.05rem;
+      font-size: clamp(0.95rem, 1.8vw, 1.05rem);
       color: rgba(255,255,255,0.65);
       font-weight: 300;
       line-height: 1.8;
-      margin-bottom: 38px;
+      margin-bottom: 34px;
       max-width: 520px;
     }
     .hero-actions {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 52px;
+      margin-bottom: 44px;
+    }
+    .hero-actions .btn {
+      flex: 1;
+      min-width: 160px;
+      justify-content: center;
     }
     .hero-trust {
       display: grid;
-      grid-template-columns: repeat(3, auto);
-      gap: 28px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
       border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 28px;
+      padding-top: 24px;
     }
     .hero-trust-item {
       display: flex;
@@ -358,67 +440,14 @@
     }
     .hero-trust-item strong {
       font-family: var(--serif);
-      font-size: 1.5rem;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
       color: var(--gold-light);
       line-height: 1;
     }
     .hero-trust-item span {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       color: rgba(255,255,255,0.45);
-      letter-spacing: 0.04em;
-    }
-    /* Carte flottante droite */
-    .hero-card {
-      position: absolute;
-      right: 8%;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 280px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(184,151,90,0.25);
-      border-radius: var(--radius-lg);
-      padding: 32px 28px;
-      backdrop-filter: blur(20px);
-    }
-    .hero-card-label {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 18px;
-    }
-    .hero-card-stat {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .hero-card-stat:last-child { border-bottom: none; }
-    .hero-card-stat-icon {
-      width: 38px; height: 38px;
-      background: rgba(184,151,90,0.12);
-      border: 1px solid rgba(184,151,90,0.2);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      flex-shrink: 0;
-      color: var(--gold-light);
-      font-weight: 700;
-    }
-    .hero-card-stat strong {
-      display: block;
-      color: var(--warm-white);
-      font-size: 0.92rem;
-      font-weight: 600;
-      margin-bottom: 1px;
-    }
-    .hero-card-stat span {
-      font-size: 0.74rem;
-      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.03em;
     }
 
     /* ═══════════════════════════════
@@ -448,7 +477,7 @@
     .marquee-item {
       display: inline-flex;
       align-items: center;
-      padding: 0 32px;
+      padding: 0 28px;
       font-size: 0.88rem;
       font-weight: 700;
       letter-spacing: 0.08em;
@@ -469,15 +498,15 @@
        CHIFFRES CLÉS
     ═══════════════════════════════ */
     .stats-section {
-      padding: 90px 0;
+      padding: clamp(56px, 8vw, 90px) 0;
       background: var(--warm-white);
     }
     .stats-header {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      gap: 48px;
       align-items: center;
-      margin-bottom: 64px;
+      margin-bottom: 52px;
     }
     .stats-grid {
       display: grid;
@@ -490,21 +519,21 @@
     }
     .stat-card {
       background: var(--warm-white);
-      padding: 36px 28px;
+      padding: clamp(24px, 3vw, 36px) clamp(16px, 2.5vw, 28px);
       text-align: center;
       transition: background var(--transition);
     }
     .stat-card:hover { background: var(--cream); }
     .stat-num {
       font-family: var(--serif);
-      font-size: 2.4rem;
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
       font-weight: 700;
       color: var(--gold);
       line-height: 1;
       margin-bottom: 8px;
     }
     .stat-text {
-      font-size: 0.82rem;
+      font-size: clamp(0.75rem, 1.2vw, 0.82rem);
       font-weight: 500;
       color: var(--gray);
       letter-spacing: 0.03em;
@@ -515,12 +544,10 @@
        SERVICES
     ═══════════════════════════════ */
     .services-section {
-      padding: 90px 0;
+      padding: clamp(56px, 8vw, 90px) 0;
       background: var(--cream);
     }
-    .services-header {
-      margin-bottom: 56px;
-    }
+    .services-header { margin-bottom: 48px; }
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -532,10 +559,8 @@
     }
     .service-card {
       background: var(--warm-white);
-      padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 0;
       transition: all var(--transition);
       position: relative;
       overflow: hidden;
@@ -554,7 +579,7 @@
     .service-card:hover { background: var(--cream); }
     .service-img-wrap {
       width: 100%;
-      height: 200px;
+      height: 160px;
       overflow: hidden;
       flex-shrink: 0;
       position: relative;
@@ -567,12 +592,12 @@
       inset: 0;
       background: linear-gradient(to bottom, transparent 50%, rgba(20,16,12,0.35) 100%);
     }
-    .service-img-wrap.s1 { background: linear-gradient(135deg, #1a1208 0%, #2d2010 50%, #3d2e14 100%); }
-    .service-img-wrap.s2 { background: linear-gradient(135deg, #12100a 0%, #241c0c 50%, #342810 100%); }
-    .service-img-wrap.s3 { background: linear-gradient(135deg, #0e0d0a 0%, #1e1a0d 50%, #2a2412 100%); }
-    .service-img-wrap.s4 { background: linear-gradient(135deg, #160f05 0%, #281a0a 50%, #38240e 100%); }
-    .service-img-wrap.s5 { background: linear-gradient(135deg, #111009 0%, #201c0e 50%, #2e2812 100%); }
-    .service-img-wrap.s6 { background: linear-gradient(135deg, #0f0e0b 0%, #1c180c 50%, #28220e 100%); }
+    .service-img-wrap.s1 { background-image: url('Ouverture de porte.JPG'); background-size: cover; background-position: center; }
+    .service-img-wrap.s2 { background-image: url('Remplacement-de-serrure.JPG'); background-size: cover; background-position: center; }
+    .service-img-wrap.s3 { background-image: url('service-ouverture.JPG'); background-size: cover; background-position: center; }
+    .service-img-wrap.s4 { background-image: url('service-cles.JPG'); background-size: cover; background-position: center; }
+    .service-img-wrap.s5 { background-image: url('service-controle.JPG'); background-size: cover; background-position: center; }
+    .service-img-wrap.s6 { background-image: url('service-reparation.JPG'); background-size: cover; background-position: center; }
     .service-icon-bg {
       position: absolute;
       inset: 0;
@@ -581,35 +606,30 @@
       justify-content: center;
       z-index: 1;
     }
-    .service-icon-bg svg {
-      width: 56px;
-      height: 56px;
-      opacity: 0.18;
-      fill: var(--gold-light);
-    }
+    .service-icon-bg svg { width: 52px; height: 52px; opacity: 0.18; fill: var(--gold-light); }
     .service-body {
-      padding: 28px 28px 32px;
+      padding: clamp(20px, 2.5vw, 28px);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       flex: 1;
     }
     .service-num {
       font-family: var(--serif);
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 700;
       color: rgba(184,151,90,0.25);
       line-height: 1;
     }
     .service-body h3 {
       font-family: var(--serif);
-      font-size: 1.1rem;
+      font-size: clamp(0.98rem, 1.5vw, 1.1rem);
       font-weight: 600;
       color: var(--charcoal);
       line-height: 1.3;
     }
     .service-body p {
-      font-size: 0.86rem;
+      font-size: clamp(0.82rem, 1.2vw, 0.86rem);
       color: var(--gray);
       line-height: 1.75;
       flex: 1;
@@ -629,12 +649,11 @@
     .service-link:hover { gap: 10px; }
 
     /* ═══════════════════════════════
-       ZONE AGDE & CAP D'AGDE
+       ZONE
     ═══════════════════════════════ */
     .zone-section {
-      padding: 90px 0;
-      background:
-        linear-gradient(135deg, #111009 0%, #1e1a0e 40%, #2b2310 70%, #1a1508 100%);
+      padding: clamp(56px, 8vw, 90px) 0;
+      background: linear-gradient(135deg, #111009 0%, #1e1a0e 40%, #2b2310 70%, #1a1508 100%);
       position: relative;
       overflow: hidden;
     }
@@ -642,8 +661,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse at 60% 50%, rgba(184,151,90,0.10) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 60% 50%, rgba(184,151,90,0.10) 0%, transparent 60%);
       pointer-events: none;
     }
     .zone-section::after {
@@ -656,7 +674,7 @@
     .zone-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 64px;
+      gap: 56px;
       align-items: center;
     }
     .zone-text .section-title { color: var(--warm-white); }
@@ -665,13 +683,13 @@
     .zone-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 14px;
     }
     .zone-card {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(184,151,90,0.2);
       border-radius: var(--radius-lg);
-      padding: 28px 24px;
+      padding: clamp(20px, 2.5vw, 28px) clamp(16px, 2vw, 24px);
       transition: all var(--transition);
     }
     .zone-card:hover {
@@ -681,20 +699,20 @@
     }
     .zone-card h3 {
       font-family: var(--serif);
-      font-size: 1.1rem;
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
       font-weight: 600;
       color: var(--warm-white);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .zone-card p {
-      font-size: 0.82rem;
+      font-size: clamp(0.78rem, 1.2vw, 0.82rem);
       color: rgba(255,255,255,0.45);
       line-height: 1.7;
     }
     .zone-card .zone-tag {
       display: inline-block;
       margin-top: 14px;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -708,47 +726,42 @@
        VALEURS
     ═══════════════════════════════ */
     .valeurs-section {
-      padding: 90px 0;
-      background:
-        linear-gradient(160deg, #faf8f4 0%, #f5efe3 50%, #ede4d3 100%);
+      padding: clamp(56px, 8vw, 90px) 0;
+      background: linear-gradient(160deg, #faf8f4 0%, #f5efe3 50%, #ede4d3 100%);
       position: relative;
     }
     .valeurs-section::before {
       content: '';
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse at 30% 60%, rgba(184,151,90,0.08) 0%, transparent 55%);
+      background: radial-gradient(ellipse at 30% 60%, rgba(184,151,90,0.08) 0%, transparent 55%);
       pointer-events: none;
     }
-    .valeurs-section > * {
-      position: relative;
-      z-index: 1;
-    }
+    .valeurs-section > * { position: relative; z-index: 1; }
     .valeurs-inner {
       display: grid;
       grid-template-columns: 1fr 2fr;
-      gap: 80px;
+      gap: 64px;
       align-items: start;
     }
     .valeurs-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 32px;
     }
     .valeur-item {
-      padding-top: 24px;
+      padding-top: 20px;
       border-top: 1px solid var(--border);
     }
     .valeur-item h3 {
       font-family: var(--serif);
-      font-size: 1.05rem;
+      font-size: clamp(0.95rem, 1.5vw, 1.05rem);
       font-weight: 600;
       color: var(--charcoal);
       margin-bottom: 10px;
     }
     .valeur-item p {
-      font-size: 0.87rem;
+      font-size: clamp(0.82rem, 1.2vw, 0.87rem);
       color: var(--gray);
       line-height: 1.75;
     }
@@ -757,15 +770,16 @@
        AVIS
     ═══════════════════════════════ */
     .avis-section {
-      padding: 90px 0;
+      padding: clamp(56px, 8vw, 90px) 0;
       background: var(--sand);
     }
     .avis-header {
-      margin-bottom: 52px;
+      margin-bottom: 44px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       gap: 24px;
+      flex-wrap: wrap;
     }
     .avis-score {
       display: flex;
@@ -775,32 +789,28 @@
     }
     .avis-score-num {
       font-family: var(--serif);
-      font-size: 3rem;
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 700;
       color: var(--gold);
       line-height: 1;
     }
-    .avis-score-detail {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
+    .avis-score-detail { display: flex; flex-direction: column; gap: 4px; }
     .stars { color: var(--gold); font-size: 0.95rem; letter-spacing: 2px; }
     .avis-score-detail span { font-size: 0.8rem; color: var(--gray); }
     .avis-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 18px;
     }
     .avis-card {
       background: var(--warm-white);
       border-radius: var(--radius-lg);
-      padding: 30px;
+      padding: clamp(20px, 2.5vw, 30px);
       box-shadow: var(--shadow-sm);
       border: 1px solid rgba(0,0,0,0.05);
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
       transition: all var(--transition);
     }
     .avis-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
@@ -823,7 +833,7 @@
       flex-shrink: 0;
     }
     .avis-text {
-      font-size: 0.9rem;
+      font-size: clamp(0.85rem, 1.3vw, 0.9rem);
       color: var(--charcoal-2);
       line-height: 1.75;
       font-style: italic;
@@ -834,28 +844,33 @@
       font-weight: 600;
       color: var(--charcoal);
     }
-    .avis-author span {
-      font-size: 0.76rem;
-      color: var(--gray-light);
-    }
+    .avis-author span { font-size: 0.76rem; color: var(--gray-light); }
 
     /* ═══════════════════════════════
        ASSURANCES
     ═══════════════════════════════ */
     .assurances-section {
-      padding: 90px 0;
+      padding: clamp(56px, 8vw, 90px) 0;
       background: var(--cream);
     }
+    .assurances-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(245,240,230,0.88);
+      z-index: 0;
+    }
+    .assurances-section .container { position: relative; z-index: 1; }
     .assurances-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 72px;
+      gap: 64px;
       align-items: center;
     }
     .assurances-visual {
       background: var(--charcoal);
       border-radius: var(--radius-lg);
-      padding: 48px 40px;
+      padding: clamp(28px, 4vw, 48px) clamp(24px, 3.5vw, 40px);
       position: relative;
       overflow: hidden;
     }
@@ -869,7 +884,7 @@
     }
     .assurances-visual h3 {
       font-family: var(--serif);
-      font-size: 1.35rem;
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
       font-weight: 600;
       color: var(--warm-white);
       margin-bottom: 12px;
@@ -878,13 +893,9 @@
       font-size: 0.88rem;
       color: rgba(255,255,255,0.5);
       line-height: 1.75;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
-    .assurances-checklist {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .assurances-checklist { display: flex; flex-direction: column; gap: 12px; }
     .check-item {
       display: flex;
       align-items: flex-start;
@@ -922,29 +933,22 @@
       letter-spacing: 0.03em;
       transition: all var(--transition);
     }
-    .assurance-badge:hover {
-      border-color: var(--gold);
-      color: var(--gold-dark);
-    }
+    .assurance-badge:hover { border-color: var(--gold); color: var(--gold-dark); }
 
     /* ═══════════════════════════════
        FAQ
     ═══════════════════════════════ */
     .faq-section {
-      padding: 90px 0;
+      padding: clamp(56px, 8vw, 90px) 0;
       background: var(--warm-white);
     }
     .faq-inner {
       display: grid;
       grid-template-columns: 1fr 1.6fr;
-      gap: 80px;
+      gap: 64px;
       align-items: start;
     }
-    .faq-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .faq-list { display: flex; flex-direction: column; gap: 2px; }
     .faq-list details {
       background: var(--cream);
       border: 1px solid var(--border);
@@ -952,12 +956,10 @@
       overflow: hidden;
       transition: border-color var(--transition);
     }
-    .faq-list details[open] {
-      border-color: var(--gold);
-    }
+    .faq-list details[open] { border-color: var(--gold); }
     .faq-list summary {
-      padding: 20px 24px;
-      font-size: 0.93rem;
+      padding: 18px 20px;
+      font-size: clamp(0.87rem, 1.4vw, 0.93rem);
       font-weight: 600;
       color: var(--charcoal);
       cursor: pointer;
@@ -982,7 +984,7 @@
     .faq-list details[open] summary::after { transform: rotate(45deg); }
     .faq-list details[open] summary { color: var(--gold-dark); }
     .faq-answer {
-      padding: 16px 24px 24px;
+      padding: 16px 20px 22px;
       font-size: 0.88rem;
       color: var(--gray);
       line-height: 1.8;
@@ -993,26 +995,22 @@
        CONTACT
     ═══════════════════════════════ */
     .contact-section {
-      padding: 90px 0;
+      padding: clamp(56px, 8vw, 90px) 0;
       background: var(--cream);
     }
     .contact-inner {
       display: grid;
       grid-template-columns: 1fr 1.4fr;
-      gap: 72px;
+      gap: 56px;
       align-items: start;
     }
     .contact-info-items {
-      margin-top: 36px;
+      margin-top: 28px;
       display: flex;
       flex-direction: column;
-      gap: 22px;
+      gap: 20px;
     }
-    .contact-info-item {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
+    .contact-info-item { display: flex; gap: 16px; align-items: flex-start; }
     .contact-info-icon {
       width: 42px; height: 42px;
       background: var(--charcoal);
@@ -1021,14 +1019,14 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       font-weight: 700;
       color: var(--gold-light);
       font-family: var(--serif);
     }
     .contact-info-item strong {
       display: block;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -1041,42 +1039,43 @@
       font-weight: 500;
       color: var(--charcoal);
       transition: color var(--transition);
+      word-break: break-word;
     }
     .contact-info-item a:hover { color: var(--gold); }
     .contact-form-wrap {
       background: var(--warm-white);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 40px 36px;
+      padding: clamp(24px, 3.5vw, 40px) clamp(20px, 3vw, 36px);
       box-shadow: var(--shadow-sm);
     }
     .contact-form-wrap h3 {
       font-family: var(--serif);
-      font-size: 1.3rem;
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
       font-weight: 600;
       color: var(--charcoal);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 14px;
     }
-    .form-group { margin-bottom: 18px; }
+    .form-group { margin-bottom: 16px; }
     .form-group label {
       display: block;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--gray);
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
     .form-group input,
     .form-group textarea,
     .form-group select {
       width: 100%;
-      padding: 12px 16px;
+      padding: 12px 14px;
       border: 1.5px solid rgba(0,0,0,0.1);
       border-radius: var(--radius);
       font-family: var(--sans);
@@ -1085,6 +1084,8 @@
       background: var(--cream);
       outline: none;
       transition: border-color var(--transition), box-shadow var(--transition);
+      -webkit-appearance: none;
+      appearance: none;
     }
     .form-group input:focus,
     .form-group textarea:focus,
@@ -1092,7 +1093,7 @@
       border-color: var(--gold);
       box-shadow: 0 0 0 3px rgba(184,151,90,0.1);
     }
-    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group textarea { resize: vertical; min-height: 100px; }
     .form-submit {
       width: 100%;
       padding: 15px;
@@ -1106,6 +1107,7 @@
       letter-spacing: 0.06em;
       cursor: pointer;
       transition: all var(--transition);
+      touch-action: manipulation;
     }
     .form-submit:hover { background: var(--gold); }
 
@@ -1115,36 +1117,36 @@
     footer {
       background: var(--charcoal);
       color: rgba(255,255,255,0.55);
-      padding: 70px 0 32px;
+      padding: clamp(48px, 7vw, 70px) 0 28px;
     }
     .footer-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 48px;
-      margin-bottom: 56px;
-      padding-bottom: 56px;
+      gap: 40px;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
     .footer-brand-name {
       font-family: var(--serif);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--warm-white);
       margin-bottom: 3px;
     }
     .footer-brand-name span { color: var(--gold); }
     .footer-brand-sub {
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.25);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .footer-brand-desc {
       font-size: 0.85rem;
       line-height: 1.75;
       color: rgba(255,255,255,0.4);
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
     .footer-tel {
       display: inline-flex;
@@ -1157,14 +1159,14 @@
     }
     .footer-tel:hover { color: var(--warm-white); }
     .footer-col h4 {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.35);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
-    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul li { margin-bottom: 11px; }
     .footer-col ul li a {
       font-size: 0.87rem;
       color: rgba(255,255,255,0.45);
@@ -1178,10 +1180,10 @@
       flex-wrap: wrap;
       gap: 12px;
     }
-    .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.25); }
-    .footer-legal { display: flex; gap: 22px; }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+    .footer-legal { display: flex; gap: 20px; flex-wrap: wrap; }
     .footer-legal a {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: rgba(255,255,255,0.25);
       transition: color var(--transition);
     }
@@ -1192,13 +1194,13 @@
     ═══════════════════════════════ */
     .floating-cta {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      bottom: 24px;
+      right: 24px;
       z-index: 900;
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 13px 24px;
+      padding: 13px 22px;
       background: var(--charcoal);
       color: var(--warm-white);
       font-size: 0.88rem;
@@ -1208,11 +1210,9 @@
       border: 1px solid rgba(184,151,90,0.3);
       box-shadow: var(--shadow-lg);
       transition: all var(--transition);
+      touch-action: manipulation;
     }
-    .floating-cta:hover {
-      background: var(--gold);
-      border-color: var(--gold);
-    }
+    .floating-cta:hover { background: var(--gold); border-color: var(--gold); }
     .floating-dot {
       width: 7px; height: 7px;
       background: #7CCD7C;
@@ -1222,38 +1222,89 @@
     }
 
     /* ═══════════════════════════════
-       RESPONSIVE
+       RESPONSIVE — TABLETTE (≤ 1024px)
     ═══════════════════════════════ */
     @media (max-width: 1024px) {
-      .hero-card { display: none; }
-      .stats-header { grid-template-columns: 1fr; gap: 28px; }
+      .nav-links { gap: 22px; }
+      .stats-header { grid-template-columns: 1fr; gap: 24px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .valeurs-inner { grid-template-columns: 1fr; gap: 40px; }
-      .assurances-inner { grid-template-columns: 1fr; }
-      .faq-inner { grid-template-columns: 1fr; gap: 40px; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-    }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hero { min-height: auto; }
-      .hero-content { padding: 80px 0 70px; }
-      .hero-trust { grid-template-columns: repeat(3, 1fr); gap: 16px; }
       .services-grid { grid-template-columns: 1fr 1fr; }
       .zone-inner { grid-template-columns: 1fr; gap: 40px; }
+      .zone-cards { grid-template-columns: 1fr 1fr; }
+      .valeurs-inner { grid-template-columns: 1fr; gap: 36px; }
+      .assurances-inner { grid-template-columns: 1fr; gap: 40px; }
+      .faq-inner { grid-template-columns: 1fr; gap: 36px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    /* ═══════════════════════════════
+       RESPONSIVE — MOBILE (≤ 768px)
+    ═══════════════════════════════ */
+    @media (max-width: 768px) {
+      .container { padding: 0 16px; }
+
+      /* Header */
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      /* Hero */
+      .hero { min-height: auto; }
+      .hero-content { padding: 72px 0 60px; }
+      .hero h1 br { display: none; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; text-align: center; justify-content: center; }
+      .hero-trust { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+      .hero-trust-item strong { font-size: 1.05rem; }
+      .hero-trust-item span { font-size: 0.65rem; }
+
+      /* Stats */
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Services */
+      .services-grid { grid-template-columns: 1fr; }
+      .service-img-wrap { height: 130px; }
+
+      /* Zone */
       .zone-cards { grid-template-columns: 1fr; }
-      .valeurs-grid { grid-template-columns: 1fr; }
+
+      /* Valeurs */
+      .valeurs-grid { grid-template-columns: 1fr; gap: 24px; }
+
+      /* Avis */
       .avis-header { flex-direction: column; align-items: flex-start; }
       .avis-grid { grid-template-columns: 1fr; }
-      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+
+      /* Assurances */
+      .assurances-inner { grid-template-columns: 1fr; }
+
+      /* FAQ */
+      .faq-inner { grid-template-columns: 1fr; }
+
+      /* Contact */
+      .contact-inner { grid-template-columns: 1fr; gap: 32px; }
       .form-row { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .floating-cta { bottom: 18px; right: 18px; }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+      /* Floating CTA */
+      .floating-cta { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 0.82rem; }
     }
-    @media (max-width: 540px) {
-      .services-grid { grid-template-columns: 1fr; }
+
+    /* ═══════════════════════════════
+       RESPONSIVE — PETIT MOBILE (≤ 480px)
+    ═══════════════════════════════ */
+    @media (max-width: 480px) {
+      .hero-trust { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .hero-trust-item:last-child { grid-column: 1 / -1; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
-      .hero-trust { grid-template-columns: repeat(2, auto); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .zone-cards { grid-template-columns: 1fr; }
+      .assurances-badges { gap: 8px; }
+      .assurance-badge { padding: 6px 12px; font-size: 0.78rem; }
+      .floating-cta { left: 16px; right: 16px; bottom: 16px; justify-content: center; }
     }
   </style>
 </head>
@@ -1277,9 +1328,24 @@
           <span class="nav-cta-dot"></span>
           04 67 21 89 34
         </a>
+        <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </nav>
     </div>
   </header>
+
+  <!-- ═══════ MENU MOBILE ═══════ -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile">
+    <a href="#services" class="mobile-nav-link">Services</a>
+    <a href="#zone" class="mobile-nav-link">Secteur d'intervention</a>
+    <a href="#avis" class="mobile-nav-link">Avis clients</a>
+    <a href="#contact" class="mobile-nav-link">Contact &amp; devis</a>
+    <a href="tel:+33467218934" class="mobile-call">
+      <span class="nav-cta-dot"></span>
+      04 67 21 89 34 — Urgence 24h/7j
+    </a>
+  </nav>
 
   <main>
 
@@ -1302,12 +1368,8 @@
             de jour comme de nuit, avec devis gratuit sur place.
           </p>
           <div class="hero-actions">
-            <a href="tel:+33467218934" class="btn btn-gold">
-              Appeler maintenant
-            </a>
-            <a href="#contact" class="btn btn-outline">
-              Demander un devis
-            </a>
+            <a href="tel:+33467218934" class="btn btn-gold">Appeler maintenant</a>
+            <a href="#contact" class="btn btn-outline">Demander un devis</a>
           </div>
           <div class="hero-trust" role="list">
             <div class="hero-trust-item" role="listitem">
@@ -1321,32 +1383,6 @@
             <div class="hero-trust-item" role="listitem">
               <strong>25 ans</strong>
               <span>d'expérience</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Carte flottante (desktop uniquement) -->
-        <div class="hero-card" aria-hidden="true">
-          <div class="hero-card-label">Intervention en cours</div>
-          <div class="hero-card-stat">
-            <div class="hero-card-stat-icon">30</div>
-            <div>
-              <strong>Délai d'intervention</strong>
-              <span>moins de 30 minutes sur Agde</span>
-            </div>
-          </div>
-          <div class="hero-card-stat">
-            <div class="hero-card-stat-icon">0</div>
-            <div>
-              <strong>Devis gratuit sur place</strong>
-              <span>aucun frais de déplacement caché</span>
-            </div>
-          </div>
-          <div class="hero-card-stat">
-            <div class="hero-card-stat-icon">AG</div>
-            <div>
-              <strong>Agréé assurances</strong>
-              <span>facture directe à votre assureur</span>
             </div>
           </div>
         </div>
@@ -1370,7 +1406,6 @@
           <span class="marquee-item">GMF</span>
           <span class="marquee-item">MAAF</span>
           <span class="marquee-item">Crédit Agricole</span>
-          <!-- doublon pour boucle sans-couture -->
           <span class="marquee-item" aria-hidden="true">AXA</span>
           <span class="marquee-item" aria-hidden="true">Allianz</span>
           <span class="marquee-item" aria-hidden="true">MAIF</span>
@@ -1444,7 +1479,7 @@
               <div class="service-num">01</div>
               <h3>Ouverture de porte</h3>
               <p>Porte claquée, clé cassée dans la serrure, blocage de cylindre — nous ouvrons votre porte sans dégradation grâce à un outillage professionnel adapté à chaque modèle de serrure.</p>
-              <span class="service-link">Demander une intervention &rarr;</span>
+              <a href="tel:+33467218934" class="service-link">Demander une intervention &rarr;</a>
             </div>
           </article>
 
@@ -1456,7 +1491,7 @@
               <div class="service-num">02</div>
               <h3>Remplacement de serrure</h3>
               <p>Serrure endommagée, forcée ou vieillissante ? Nous remplaçons votre serrure par un modèle certifié A2P, adapté à votre porte et reconnu par les assurances habitation.</p>
-              <span class="service-link">Demander une intervention &rarr;</span>
+              <a href="tel:+33467218934" class="service-link">Demander une intervention &rarr;</a>
             </div>
           </article>
 
@@ -1468,7 +1503,7 @@
               <div class="service-num">03</div>
               <h3>Installation haute sécurité</h3>
               <p>Serrures multipoints, cylindres européens anti-crochetage et anti-perçage, blindage de porte — pour sécuriser efficacement votre logement ou votre local professionnel.</p>
-              <span class="service-link">Demander un devis &rarr;</span>
+              <a href="#contact" class="service-link">Demander un devis &rarr;</a>
             </div>
           </article>
 
@@ -1480,7 +1515,7 @@
               <div class="service-num">04</div>
               <h3>Clés perdues ou volées</h3>
               <p>En cas de perte ou de vol, nous procédons au changement de cylindre en urgence et créons de nouvelles clés pour que vous repreniez possession de votre domicile en toute sécurité.</p>
-              <span class="service-link">Demander une intervention &rarr;</span>
+              <a href="tel:+33467218934" class="service-link">Demander une intervention &rarr;</a>
             </div>
           </article>
 
@@ -1492,7 +1527,7 @@
               <div class="service-num">05</div>
               <h3>Contrôle d'accès</h3>
               <p>Digicode, badge de proximité, biométrie — nous installons des systèmes de contrôle d'accès modernes pour vos locaux professionnels, résidences ou copropriétés.</p>
-              <span class="service-link">Demander un devis &rarr;</span>
+              <a href="#contact" class="service-link">Demander un devis &rarr;</a>
             </div>
           </article>
 
@@ -1504,7 +1539,7 @@
               <div class="service-num">06</div>
               <h3>Réparation et entretien</h3>
               <p>Serrure grippée, mécanisme usé, poignée défaillante — notre artisan répare ou remplace les pièces défectueuses pour garantir la longévité de vos équipements.</p>
-              <span class="service-link">Demander une intervention &rarr;</span>
+              <a href="tel:+33467218934" class="service-link">Demander une intervention &rarr;</a>
             </div>
           </article>
 
@@ -1525,15 +1560,13 @@
               Nous avons fait le choix de ne couvrir qu'un secteur restreint
               pour vous garantir une présence rapide et un service de qualité.
             </p>
-            <p class="section-desc">
+            <p class="section-desc" style="margin-top: 14px;">
               Que vous soyez en centre-ville d'Agde, dans les quartiers résidentiels,
               au Cap d'Agde ou sur la zone portuaire, notre artisan est à moins de
               30 minutes de chez vous, à toute heure.
             </p>
-            <div style="margin-top: 36px;">
-              <a href="tel:+33467218934" class="btn btn-gold">
-                Vérifier ma disponibilité
-              </a>
+            <div style="margin-top: 32px;">
+              <a href="tel:+33467218934" class="btn btn-gold">Vérifier ma disponibilité</a>
             </div>
           </div>
           <div class="zone-cards">
@@ -1571,14 +1604,12 @@
             <h2 class="section-title" id="valeurs-title">
               Une serrurerie<br>qui respecte<br>ses clients
             </h2>
-            <p class="section-desc" style="margin-top:18px;">
+            <p class="section-desc" style="margin-top: 18px;">
               Nous construisons notre réputation sur la transparence,
               la qualité d'exécution et le respect de votre temps et de votre budget.
             </p>
-            <div style="margin-top: 32px;">
-              <a href="#contact" class="btn btn-outline-dark">
-                Obtenir un devis gratuit
-              </a>
+            <div style="margin-top: 28px;">
+              <a href="#contact" class="btn btn-outline-dark">Obtenir un devis gratuit</a>
             </div>
           </div>
           <div class="valeurs-grid">
@@ -1630,9 +1661,9 @@
               <div class="stars" aria-label="5 étoiles">★★★★★</div>
             </div>
             <p class="avis-text">Porte claquée un dimanche soir. L'artisan est arrivé en 20 minutes, a ouvert sans dégât et a changé le cylindre dans la foulée. Tarif annoncé au téléphone, aucune surprise. Très professionnel.</p>
-            <div class="avis-author">
+            <div style="display:flex;align-items:center;gap:12px;">
               <div class="avis-avatar" aria-hidden="true">I</div>
-              <div>
+              <div class="avis-author">
                 <strong>Isabelle M.</strong>
                 <span>Agde — Résidente</span>
               </div>
@@ -1648,9 +1679,9 @@
               <div class="stars" aria-label="5 étoiles">★★★★★</div>
             </div>
             <p class="avis-text">Serrure multipoints remplacée dans ma villa au Cap d'Agde. Travail soigné, matériaux de qualité certifiés A2P. La facture a été directement transmise à mon assureur. Je recommande sans hésitation.</p>
-            <div class="avis-author">
+            <div style="display:flex;align-items:center;gap:12px;">
               <div class="avis-avatar" aria-hidden="true">F</div>
-              <div>
+              <div class="avis-author">
                 <strong>François T.</strong>
                 <span>Cap d'Agde — Propriétaire</span>
               </div>
@@ -1666,9 +1697,9 @@
               <div class="stars" aria-label="5 étoiles">★★★★★</div>
             </div>
             <p class="avis-text">Tentative d'effraction sur ma porte. Intervention rapide, diagnostic clair, remplacement avec blindage. L'artisan a pris le temps de tout expliquer et m'a orientée pour le dossier assurance.</p>
-            <div class="avis-author">
+            <div style="display:flex;align-items:center;gap:12px;">
               <div class="avis-avatar" aria-hidden="true">N</div>
-              <div>
+              <div class="avis-author">
                 <strong>Nadia K.</strong>
                 <span>Agde — Locataire</span>
               </div>
@@ -1680,7 +1711,7 @@
     </section>
 
     <!-- ═══════ ASSURANCES ═══════ -->
-    <section class="assurances-section" aria-labelledby="assurances-title">
+    <section class="assurances-section" aria-labelledby="assurances-title" style="background-image: url('Agrément & garanties.JPG'); background-size: cover; background-position: center; position: relative;">
       <div class="container">
         <div class="assurances-inner">
           <div>
@@ -1688,7 +1719,7 @@
             <h2 class="section-title" id="assurances-title">
               Agréé par les principales<br>compagnies d'assurance
             </h2>
-            <p class="section-desc" style="margin: 18px 0 32px;">
+            <p class="section-desc" style="margin: 16px 0 28px;">
               En cas de sinistre couvert par votre contrat habitation, nous intervenons
               dans le cadre de votre garantie et établissons un rapport d'expertise
               pour faciliter votre prise en charge.
@@ -1753,10 +1784,8 @@
               Une question sur nos tarifs, nos délais ou nos prestations ?
               Retrouvez les réponses ci-contre, ou appelez-nous directement.
             </p>
-            <div style="margin-top: 32px;">
-              <a href="tel:+33467218934" class="btn btn-outline-dark">
-                04 67 21 89 34
-              </a>
+            <div style="margin-top: 28px;">
+              <a href="tel:+33467218934" class="btn btn-outline-dark">04 67 21 89 34</a>
             </div>
           </div>
           <div class="faq-list">
@@ -1798,7 +1827,7 @@
     <!-- ═══════ CONTACT ═══════ -->
     <section class="contact-section" id="contact" aria-labelledby="contact-title">
       <div class="container">
-        <div style="text-align:center; margin-bottom: 64px;">
+        <div style="text-align:center; margin-bottom: 52px;">
           <p class="section-label">Contact</p>
           <h2 class="section-title" id="contact-title">Demander une intervention ou un devis</h2>
         </div>
@@ -1875,9 +1904,7 @@
                 <label for="message">Message</label>
                 <textarea id="message" name="message" placeholder="Décrivez votre situation, précisez votre adresse à Agde ou Cap d'Agde, et le créneau qui vous convient le mieux…" required></textarea>
               </div>
-              <button type="submit" class="form-submit">
-                Envoyer ma demande
-              </button>
+              <button type="submit" class="form-submit">Envoyer ma demande</button>
             </form>
           </div>
         </div>
@@ -1947,6 +1974,36 @@
     <span class="floating-dot"></span>
     Appeler en urgence
   </a>
+
+  <script>
+    // Menu hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Ferme le menu en cliquant un lien
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Ferme le menu en cliquant en dehors
+    document.addEventListener('click', e => {
+      if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
 
 </body>
 </html>
