@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -269,22 +270,23 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('hero-sunset.jfif');
-      background-size: cover;
-      background-position: center center;
+      background:
+        linear-gradient(135deg, #0d0b08 0%, #1a1208 35%, #2a1e0a 60%, #1c160a 100%);
     }
     .hero-bg::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to right, rgba(20,16,12,0.92) 42%, rgba(20,16,12,0.55) 70%, rgba(20,16,12,0.3) 100%);
+      background:
+        radial-gradient(ellipse at 80% 40%, rgba(184,151,90,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(140,109,58,0.12) 0%, transparent 45%);
     }
     .hero-bg::after {
       content: '';
       position: absolute;
       inset: 0;
-      background-image:
-        radial-gradient(circle at 75% 50%, rgba(184,151,90,0.06) 0%, transparent 55%);
+      background:
+        linear-gradient(to right, rgba(10,8,5,0.60) 0%, rgba(10,8,5,0.10) 100%);
     }
     .hero-content {
       position: relative;
@@ -550,21 +552,40 @@
     }
     .service-card:hover::before { height: 100%; }
     .service-card:hover { background: var(--cream); }
-    .service-card:hover .service-img { transform: scale(1.04); }
     .service-img-wrap {
       width: 100%;
       height: 200px;
       overflow: hidden;
-      background: var(--charcoal);
       flex-shrink: 0;
-    }
-    .service-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+      position: relative;
       transition: transform 0.5s ease;
-      filter: brightness(0.9);
+    }
+    .service-card:hover .service-img-wrap { transform: scale(1.03); }
+    .service-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(20,16,12,0.35) 100%);
+    }
+    .service-img-wrap.s1 { background: linear-gradient(135deg, #1a1208 0%, #2d2010 50%, #3d2e14 100%); }
+    .service-img-wrap.s2 { background: linear-gradient(135deg, #12100a 0%, #241c0c 50%, #342810 100%); }
+    .service-img-wrap.s3 { background: linear-gradient(135deg, #0e0d0a 0%, #1e1a0d 50%, #2a2412 100%); }
+    .service-img-wrap.s4 { background: linear-gradient(135deg, #160f05 0%, #281a0a 50%, #38240e 100%); }
+    .service-img-wrap.s5 { background: linear-gradient(135deg, #111009 0%, #201c0e 50%, #2e2812 100%); }
+    .service-img-wrap.s6 { background: linear-gradient(135deg, #0f0e0b 0%, #1c180c 50%, #28220e 100%); }
+    .service-icon-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    .service-icon-bg svg {
+      width: 56px;
+      height: 56px;
+      opacity: 0.18;
+      fill: var(--gold-light);
     }
     .service-body {
       padding: 28px 28px 32px;
@@ -612,10 +633,8 @@
     ═══════════════════════════════ */
     .zone-section {
       padding: 90px 0;
-      background: var(--charcoal);
-      background-image: url('zone-agde.jfif');
-      background-size: cover;
-      background-position: center center;
+      background:
+        linear-gradient(135deg, #111009 0%, #1e1a0e 40%, #2b2310 70%, #1a1508 100%);
       position: relative;
       overflow: hidden;
     }
@@ -623,7 +642,8 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to right, rgba(20,16,12,0.88) 45%, rgba(20,16,12,0.70) 100%);
+      background:
+        radial-gradient(ellipse at 60% 50%, rgba(184,151,90,0.10) 0%, transparent 60%);
       pointer-events: none;
     }
     .zone-section::after {
@@ -689,17 +709,16 @@
     ═══════════════════════════════ */
     .valeurs-section {
       padding: 90px 0;
-      background: var(--warm-white);
-      background-image: url('valeurs-bg.jfif');
-      background-size: cover;
-      background-position: center center;
+      background:
+        linear-gradient(160deg, #faf8f4 0%, #f5efe3 50%, #ede4d3 100%);
       position: relative;
     }
     .valeurs-section::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(250,248,244,0.88);
+      background:
+        radial-gradient(ellipse at 30% 60%, rgba(184,151,90,0.08) 0%, transparent 55%);
       pointer-events: none;
     }
     .valeurs-section > * {
@@ -1418,8 +1437,8 @@
         <div class="services-grid">
 
           <article class="service-card">
-            <div class="service-img-wrap">
-              <img src="service-ouverture.jfif" alt="Digicode interphone installation serrurerie Agde" class="service-img" loading="lazy" />
+            <div class="service-img-wrap s1">
+              <div class="service-icon-bg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 2a4 4 0 0 0-4 4v12a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4V6a4 4 0 0 0-4-4H6zm6 3a5 5 0 0 1 4.9 6H19v2h-1v2h-2v-2h-5.1A5 5 0 1 1 12 5zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 1.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg></div>
             </div>
             <div class="service-body">
               <div class="service-num">01</div>
@@ -1430,8 +1449,8 @@
           </article>
 
           <article class="service-card">
-            <div class="service-img-wrap">
-              <img src="service-cylindre.jfif" alt="Cylindre et clés remplacement serrure Agde" class="service-img" loading="lazy" />
+            <div class="service-img-wrap s2">
+              <div class="service-icon-bg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg></div>
             </div>
             <div class="service-body">
               <div class="service-num">02</div>
@@ -1442,8 +1461,8 @@
           </article>
 
           <article class="service-card">
-            <div class="service-img-wrap">
-              <img src="service-securite.jfif" alt="Serrure multipoints haute sécurité installation Agde" class="service-img" loading="lazy" />
+            <div class="service-img-wrap s3">
+              <div class="service-icon-bg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5z"/></svg></div>
             </div>
             <div class="service-body">
               <div class="service-num">03</div>
@@ -1454,8 +1473,8 @@
           </article>
 
           <article class="service-card">
-            <div class="service-img-wrap">
-              <img src="service-cles.jfif" alt="Artisan serrurier remplacement cylindre clés perdues Agde" class="service-img" loading="lazy" />
+            <div class="service-img-wrap s4">
+              <div class="service-icon-bg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg></div>
             </div>
             <div class="service-body">
               <div class="service-num">04</div>
@@ -1466,8 +1485,8 @@
           </article>
 
           <article class="service-card">
-            <div class="service-img-wrap">
-              <img src="service-controle.jfif" alt="Artisan serrurier ouverture de porte Agde" class="service-img" loading="lazy" />
+            <div class="service-img-wrap s5">
+              <div class="service-icon-bg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"/></svg></div>
             </div>
             <div class="service-body">
               <div class="service-num">05</div>
@@ -1478,8 +1497,8 @@
           </article>
 
           <article class="service-card">
-            <div class="service-img-wrap">
-              <img src="service-reparation.jfif" alt="Mécanisme de serrure en cours de réparation Agde" class="service-img" loading="lazy" />
+            <div class="service-img-wrap s6">
+              <div class="service-icon-bg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></div>
             </div>
             <div class="service-body">
               <div class="service-num">06</div>
